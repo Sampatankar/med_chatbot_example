@@ -37,4 +37,20 @@ Store types:
 3. Qdrant
 The above are open source. There are other closed sourced variants.
 
-Restart notes and work at 13:29 to 17:29
+20/9/23:
+Process in more detail:
+1. docs/data are preprocessed by Langchain - loaders, splitters
+2. The preprocessed text is passed to an embedding model - sentence transformer
+3. The embeddings are then stored somewhere - vector database/store - faiss CPU
+4. The user inputs a prompt, which via Faiss CPU, is passed through an LLM to give a response
+
+Inside the vector store, we use inbuilt similarity algorithms to have next to no latency.  
+
+# Once all dl:
+Create a file called ingest.py
+At this point, I am having issues with langchain module is installed in the environment (0.0.74), along with the the LLMS AND the ALL options, but on running ingest.py, we are not finding the method being called. This requires debugging.
+The problem was due to langchain requiring upgrading - used pip --upgrade command.
+I then changed the run command from 'python3 ingest.py' to 'python ingest.py'.  Multiple versions of Python perhaps?
+embeddings created and stored in the data folder store
+
+model.py will be the code for the bot, through which the LLM will be accessible. (25:56 onwards)
